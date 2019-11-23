@@ -10,3 +10,11 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+blog-example.iml
+php.xml
+vcs.xml
+workspace.xml
+composer.lock
+.idea/
+public/mix-manifest.json
+package-lock.json

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminNewsController extends Controller
 {
@@ -14,7 +16,8 @@ class AdminNewsController extends Controller
      */
     public function index()
     {
-        //
+        $data['news'] = News::get();
+        return view('admin.news.index', $data);
     }
 
     /**
@@ -24,7 +27,8 @@ class AdminNewsController extends Controller
      */
     public function create()
     {
-        //
+        $data['news'] = new News();
+        return view('admin.news.create', $data);
     }
 
     /**
@@ -35,7 +39,10 @@ class AdminNewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->input();
+        $input['user_id'] = Auth::user()->id;
+        News::create($input);
+        return redirect()->route('admin.news.index')->with('success', 'News created.');
     }
 
     /**
@@ -46,7 +53,8 @@ class AdminNewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['news'] = News::findOrFail($id);
+        return view('admin.news.show', $data);
     }
 
     /**
@@ -57,7 +65,8 @@ class AdminNewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['news'] = News::findOrFail($id);
+        return view('admin.news.edit', $data);
     }
 
     /**
@@ -69,7 +78,11 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->input();
+        $news = News::findOrFail($id);
+        $news->update($input);
+        return redirect()->route('admin.news.index')->with('success', 'News updated.');
+
     }
 
     /**
@@ -80,6 +93,8 @@ class AdminNewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $news = News::findOrFail($id);
+        $news->delete();
+        return redirect()->route('admin.news.index')->with('success', 'News deleted.');
     }
 }

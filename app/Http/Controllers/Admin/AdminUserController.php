@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -14,7 +16,8 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        //
+        $data['users'] = User::get();
+        return view('admin.users.index', $data);
     }
 
     /**
@@ -24,7 +27,9 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
+        $data['user'] = new User();
+        return view('admin.users.create', $data);
+
     }
 
     /**
@@ -33,9 +38,11 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $input = $request->input();
+        User::create($input);
+        return redirect()->route('admin.users.index')->with('success', 'User created.');
     }
 
     /**
@@ -46,7 +53,8 @@ class AdminUserController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['user'] = User::findOrFail($id);
+        return view('admin.users.show', $data);
     }
 
     /**
@@ -57,7 +65,8 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['user'] = User::findOrFail($id);
+        return view('admin.users.edit', $data);
     }
 
     /**
@@ -69,7 +78,10 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->input();
+        $user = User::findOrFail($id);
+        $user->update($input);
+        return redirect()->route('admin.users.index')->with('success', 'User updated.');
     }
 
     /**
@@ -80,6 +92,8 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'User deleted.');
     }
 }

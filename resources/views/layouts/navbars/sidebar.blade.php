@@ -17,34 +17,28 @@
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
+      <li class="nav-item{{ $activePage == 'users' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('admin.users.index')}}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Users') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
+      <li class="nav-item{{ $activePage == 'blogs' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('admin.blogs.index')}}">
           <i class="material-icons">library_books</i>
             <p>{{ __('Blogs') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
+      <li class="nav-item{{ $activePage == 'blog-categories' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('admin.blog-categories.index')}}">
           <i class="material-icons">bubble_chart</i>
           <p>{{ __('Categories') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
+      <li class="nav-item{{ $activePage == 'news' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('admin.news.index')}}">
           <i class="material-icons">location_ons</i>
             <p>{{ __('News') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
-          <i class="material-icons">notifications</i>
-          <p>{{ __('Notifications') }}</p>
         </a>
       </li>
     </ul>

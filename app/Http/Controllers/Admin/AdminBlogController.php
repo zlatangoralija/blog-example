@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Blog;
+use App\BlogCategory;
 use App\Http\Controllers\Controller;
+use DemeterChain\B;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminBlogController extends Controller
 {
@@ -14,7 +18,8 @@ class AdminBlogController extends Controller
      */
     public function index()
     {
-        //
+        $data['blogs'] = Blog::get();
+        return view('admin.blogs.index', $data);
     }
 
     /**
@@ -24,7 +29,9 @@ class AdminBlogController extends Controller
      */
     public function create()
     {
-        //
+        $data['blog'] = new Blog();
+        $data['categories'] = BlogCategory::pluck('title', 'id');
+        return view('admin.blogs.create', $data);
     }
 
     /**
@@ -35,7 +42,10 @@ class AdminBlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->input();
+        $input['user_id'] = Auth::user()->id;
+        Blog::create($input);
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created');
     }
 
     /**
@@ -46,7 +56,8 @@ class AdminBlogController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['blog'] = Blog::findOrFail($id);
+        return view('admin.blogs.show', $data);
     }
 
     /**
@@ -57,7 +68,9 @@ class AdminBlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['blog'] = Blog::findOrFail($id);
+        $data['categories'] = BlogCategory::pluck('title', 'id');
+        return view('admin.blogs.edit', $data);
     }
 
     /**
@@ -69,7 +82,10 @@ class AdminBlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $input = $request->input();
+        $blog->update($input);
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated');
     }
 
     /**
@@ -80,6 +96,8 @@ class AdminBlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $blog->delete;
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted');
     }
 }

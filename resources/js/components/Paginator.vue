@@ -1,96 +1,112 @@
 <template>
-    <b-container>
-        <b-row>
-            <b-col cols="12" sm="4" class="my-1" :key="index" v-for="(item, index) in paginatedItems">
-                <b-card
-                        :bg-variant="item.variant"
-                        text-variant="white"
-                        :header="item.title"
-                        class="text-center"
-                >
-                    <p class="card-text">{{item.body}}</p>
-                </b-card>
-            </b-col>
-        </b-row>
+    <nav>
+        <ul class="pagination" v-if="pagination.last_page > 0" :class="sizeClass">
+            <li class="page-item" v-if="showPrevious()" :class="{ 'disabled' : pagination.current_page <= 1 }">
+                <span v-if="pagination.current_page <= 1">
+                    <span aria-hidden="true">{{ config.previousText }}</span>
+                </span>
 
-        <b-row>
-            <b-col md="6" class="my-1">
-                <b-pagination
-                        @change="onPageChanged"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        v-model="currentPage"
-                        class="my-0"
-                />
-            </b-col>
-        </b-row>
-    </b-container>
+                <a href="#" class="page-link" v-if="pagination.current_page > 1 " :aria-label="config.ariaPrevioius" @click.prevent="changePage(pagination.current_page - 1)">
+                    <span aria-hidden="true">{{ config.previousText }}</span>
+                </a>
+            </li>
+
+            <li class="page-item" v-for="num in array" :class="{ 'active' : num === pagination.current_page }">
+                <a href="#" class="page-link" @click.prevent="changePage(num)">{{ num }}</a>
+            </li>
+
+            <li class="page-item" v-if="showNext()" :class="{ 'disabled' : pagination.current_page === pagination.last_page || pagination.last_page === 0 }">
+                <span v-if="pagination.current_page === pagination.last_page || pagination.last_page === 0">
+                    <span aria-hidden="true">{{ config.nextText }}</span>
+                </span>
+
+                <a href="#" class="page-link" v-if="pagination.current_page < pagination.last_page" :aria-label="config.ariaNext" @click.prevent="changePage(pagination.current_page + 1)">
+                    <span aria-hidden="true">{{ config.nextText }}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script>
-    const items = [
-        {
-            title: "Primary",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "primary"
-        },
-        {
-            title: "Secondary",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "secondary"
-        },
-        {
-            title: "Success",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "success"
-        },
-        {
-            title: "Info",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "info"
-        },
-        {
-            title: "Warning",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "warning"
-        },
-        {
-            title: "Danger",
-            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            variant: "danger"
-        }
-    ];
-
     export default {
-        name: "MyBootstrapGrid",
-        data() {
-            return {
-                items: items,
-                paginatedItems: items,
-                currentPage: 1,
-                perPage: 2,
-                totalRows: items.length
-            };
-        },
-        computed: {},
-        methods: {
-            paginate(page_size, page_number) {
-                let itemsToParse = this.items;
-                this.paginatedItems = itemsToParse.slice(
-                    page_number * page_size,
-                    (page_number + 1) * page_size
-                );
+        props: {
+            pagination: {
+                type: Object,
+                required: true,
             },
-            onPageChanged(page) {
-                this.paginate(this.perPage, page - 1);
-            }
+            callback: {
+                type: Function,
+                required: true,
+            },
+            options: {
+                type: Object,
+            },
+            size: {
+                type: String,
+            },
         },
-        mounted() {
-            this.paginate(this.perPage, 0);
-        }
+        computed: {
+            array() {
+                if (this.pagination.last_page <= 0) {
+                    return [];
+                }
+                let from = this.pagination.current_page - this.config.offset;
+                if (from < 1) {
+                    from = 1;
+                }
+                let to = from + (this.config.offset * 2);
+                if (to >= this.pagination.last_page) {
+                    to = this.pagination.last_page;
+                }
+                const arr = [];
+                while (from <= to) {
+                    arr.push(from);
+                    from += 1;
+                }
+                return arr;
+            },
+            config() {
+                return Object.assign({
+                    offset: 3,
+                    ariaPrevious: 'Previous',
+                    ariaNext: 'Next',
+                    previousText: '«',
+                    nextText: '»',
+                    alwaysShowPrevNext: false,
+                }, this.options);
+            },
+            sizeClass() {
+                if (this.size === 'large') {
+                    return 'pagination-lg';
+                } else if (this.size === 'small') {
+                    return 'pagination-sm';
+                }
+                return '';
+            },
+        },
+        watch: {
+            'pagination.per_page'(newVal, oldVal) { // eslint-disable-line
+                if (+newVal !== +oldVal) {
+                    this.callback();
+                }
+            },
+        },
+        methods: {
+            showPrevious() {
+                return this.config.alwaysShowPrevNext || this.pagination.current_page > 1;
+            },
+            showNext() {
+                return this.config.alwaysShowPrevNext ||
+                    this.pagination.current_page < this.pagination.last_page;
+            },
+            changePage(page) {
+                if (this.pagination.current_page === page) {
+                    return;
+                }
+                this.$set(this.pagination, 'current_page', page);
+                this.callback();
+            },
+        },
     };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

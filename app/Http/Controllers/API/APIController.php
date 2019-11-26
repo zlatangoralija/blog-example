@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Blog;
 use App\Http\Controllers\Controller;
 use App\News;
+use App\User;
 use Illuminate\Http\Request;
 
 class APIController extends Controller

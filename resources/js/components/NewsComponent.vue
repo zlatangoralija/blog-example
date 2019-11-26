@@ -45,24 +45,19 @@
                 </tbody>
             </table>
             <div style="margin: auto; text-align: center;">
-                <pagination v-if="pagination.total > pagination.per_page"
+                <paginator v-if="pagination.total > pagination.per_page"
                             :pagination="pagination" :callback="loadData"
                             :options="paginationOptions">
-                </pagination>
+                </paginator>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import pagination from 'vue-bootstrap-pagination';
     import axios from 'axios';
 
-
     export default {
-        components: {
-            pagination
-        },
         data: () => ({
         items: [],
         token: window.csrfToken,

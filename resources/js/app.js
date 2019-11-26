@@ -18,9 +18,10 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('users-component', require('./components/UsersComponent.vue').default);
+Vue.component('users-component', require('./components/UsersComponent').default);
 Vue.component('blogs-component', require('./components/BlogsComponent').default);
 Vue.component('news-component', require('./components/NewsComponent').default);
+Vue.component('paginator', require('./components/Paginator.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

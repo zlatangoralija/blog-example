@@ -1919,8 +1919,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       paginationOptions: {
         offset: 4,
-        previousText: 'Prethodna',
-        nextText: 'Sljedeća',
+        previousText: 'Previous',
+        nextText: 'Next',
         alwaysShowPrevNext: true
       }
     };
@@ -2366,8 +2366,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       paginationOptions: {
         offset: 4,
-        previousText: 'Prethodna',
-        nextText: 'Sljedeća',
+        previousText: 'Previous',
+        nextText: 'Next',
         alwaysShowPrevNext: true
       }
     };

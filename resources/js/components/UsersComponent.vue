@@ -73,8 +73,8 @@
         },
         paginationOptions: {
             offset: 4,
-            previousText: 'Prethodna',
-            nextText: 'Sljedeća',
+            previousText: 'Previous',
+            nextText: 'Next',
             alwaysShowPrevNext: true
         },
     }),

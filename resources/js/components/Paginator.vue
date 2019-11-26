@@ -2,10 +2,6 @@
     <nav>
         <ul class="pagination" v-if="pagination.last_page > 0" :class="sizeClass">
             <li class="page-item" v-if="showPrevious()" :class="{ 'disabled' : pagination.current_page <= 1 }">
-                <span v-if="pagination.current_page <= 1">
-                    <span aria-hidden="true">{{ config.previousText }}</span>
-                </span>
-
                 <a href="#" class="page-link" v-if="pagination.current_page > 1 " :aria-label="config.ariaPrevioius" @click.prevent="changePage(pagination.current_page - 1)">
                     <span aria-hidden="true">{{ config.previousText }}</span>
                 </a>
@@ -16,10 +12,6 @@
             </li>
 
             <li class="page-item" v-if="showNext()" :class="{ 'disabled' : pagination.current_page === pagination.last_page || pagination.last_page === 0 }">
-                <span v-if="pagination.current_page === pagination.last_page || pagination.last_page === 0">
-                    <span aria-hidden="true">{{ config.nextText }}</span>
-                </span>
-
                 <a href="#" class="page-link" v-if="pagination.current_page < pagination.last_page" :aria-label="config.ariaNext" @click.prevent="changePage(pagination.current_page + 1)">
                     <span aria-hidden="true">{{ config.nextText }}</span>
                 </a>

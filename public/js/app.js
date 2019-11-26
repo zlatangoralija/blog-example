@@ -2186,14 +2186,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pagination: {
@@ -38227,14 +38219,6 @@ var render = function() {
                     class: { disabled: _vm.pagination.current_page <= 1 }
                   },
                   [
-                    _vm.pagination.current_page <= 1
-                      ? _c("span", [
-                          _c("span", { attrs: { "aria-hidden": "true" } }, [
-                            _vm._v(_vm._s(_vm.config.previousText))
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
                     _vm.pagination.current_page > 1
                       ? _c(
                           "a",
@@ -38303,15 +38287,6 @@ var render = function() {
                     }
                   },
                   [
-                    _vm.pagination.current_page === _vm.pagination.last_page ||
-                    _vm.pagination.last_page === 0
-                      ? _c("span", [
-                          _c("span", { attrs: { "aria-hidden": "true" } }, [
-                            _vm._v(_vm._s(_vm.config.nextText))
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
                     _vm.pagination.current_page < _vm.pagination.last_page
                       ? _c(
                           "a",

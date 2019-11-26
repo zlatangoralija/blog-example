@@ -16,6 +16,11 @@
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
+    @if(isset($styles))
+        @foreach($styles as $key => $value)
+            <link href="{{ asset($value) }}" rel="stylesheet"/>
+        @endforeach
+    @endif
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -73,5 +78,12 @@
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
         @stack('js')
+
+        @if(isset($scripts))
+            @foreach($scripts as $key => $value)
+                <script src="{{ asset($value)}}"></script>
+            @endforeach
+        @endif
+
     </body>
 </html>

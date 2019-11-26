@@ -73,5 +73,6 @@
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
         @stack('js')
+        <script src="{{ asset('js/app.js')  }}" defer></script>
     </body>
 </html>

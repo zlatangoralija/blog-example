@@ -40,6 +40,10 @@ Generate the application key
 ```
 php artisan key:generate
 ```
+Link the public directory to storage: 
+```
+php artisan storage:link
+```
 After everything is done, serve the application and log in as an admin: 
 ```
 php artisan serve

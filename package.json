@@ -27,9 +27,7 @@
         "vue-bootstrap-pagination": "^2.10.3",
         "vue-resource": "^1.5.1",
         "vue-save-state": "^1.2.0",
-        "vue-sticky": "^3.3.4"
-    },
-    "dependencies": {
+        "vue-sticky": "^3.3.4",
         "dropzone": "^5.5.1"
     }
 }

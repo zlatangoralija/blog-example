@@ -18,6 +18,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
+                                @if(count($blogs) > 0)
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <tr>
@@ -54,6 +55,11 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                @else
+                                    <div v-else>
+                                        <div class="alert alert-warning">No results</div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,7 @@
                                     <a href="{{route('admin.blog-categories.create')}}" class="btn btn-sm btn-primary">Add category<div class="ripple-container"></div></a>
                                 </div>
                             </div>
+                              @if(count($categories) > 0)
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
@@ -48,6 +49,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                          @else
+                            <div v-else>
+                                <div class="alert alert-warning">No results</div>
+                            </div>
+                        @endif
                         </div>
                     </div>
                 </div>

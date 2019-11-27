@@ -66,16 +66,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
         <!-- Library for adding dinamically elements -->
         <script src="{{ asset('material') }}/js/plugins/arrive.min.js"></script>
-        <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
         <!-- Chartist JS -->
         <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
         <!--  Notifications Plugin    -->
         <script src="{{ asset('material') }}/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="{{ asset('material') }}/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-        
-        <script src="{{ asset('js/app.js')  }}" defer></script>
+        <script src="{{ mix('/js/app.js') }}" defer></script>
         @stack('js')
 
         @if(isset($scripts))

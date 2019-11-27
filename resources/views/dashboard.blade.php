@@ -10,6 +10,7 @@
               <h4 class="card-title">My latest news</h4>
             </div>
             <div class="card-body table-responsive">
+              @if(count($news) > 0)
               <table class="table table-hover">
                 <thead class="text-warning">
                 <th>Title</th>
@@ -25,6 +26,11 @@
                     </tr>
                 @endforeach
                 </tbody>
+              @else
+                  <div v-else>
+                      <div class="alert alert-warning">No results</div>
+                  </div>
+              @endif
               </table>
             </div>
           </div>
@@ -35,6 +41,7 @@
               <h4 class="card-title">My latest blogs</h4>
             </div>
             <div class="card-body table-responsive">
+            @if(count($news) > 0)
               <table class="table table-hover">
                 <thead class="text-warning">
                   <th>Title</th>
@@ -53,6 +60,11 @@
                 @endforeach
                 </tbody>
               </table>
+            @else
+                <div v-else>
+                    <div class="alert alert-warning">No results</div>
+                </div>
+            @endif
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
                 </span>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="items.length > 0">
             <table class="table">
                 <thead class=" text-primary">
                 <tr>
@@ -44,12 +44,13 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="margin: auto; text-align: center;">
-                <paginator v-if="pagination.total > pagination.per_page"
-                            :pagination="pagination" :callback="loadData"
-                            :options="paginationOptions">
-                </paginator>
-            </div>
+            <paginator v-if="pagination.total > pagination.per_page"
+                       :pagination="pagination" :callback="loadData"
+                       :options="paginationOptions">
+            </paginator>
+        </div>
+        <div v-else>
+            <div class="alert alert-warning">No results</div>
         </div>
     </div>
 </template>

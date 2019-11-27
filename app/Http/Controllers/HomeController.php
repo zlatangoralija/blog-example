@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
+use App\News;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $data['news'] = News::where('user_id', Auth::user()->id)->get();
+        $data['blogs'] = Blog::where('user_id', Auth::user()->id)->get();
+        return view('dashboard', $data);
     }
 }

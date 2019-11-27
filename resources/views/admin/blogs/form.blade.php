@@ -26,7 +26,7 @@
                     <label class="col-sm-2 col-form-label" for="input-password-confirmation">Content</label>
                     <div class="col-sm-7">
                         <div class="form-group bmd-form-group">
-                            {!! Form::text('content', $blog->content,  ['class' => 'form-control', 'required'=>'required', 'placeholder'=>'Content']) !!}
+                            {!! Form::textarea('content', $blog->content,  ['class' => 'form-control', 'required'=>'required', 'placeholder'=>'Content']) !!}
                         </div>
                     </div>
                 </div>

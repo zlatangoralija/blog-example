@@ -36,14 +36,11 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-//        $styles[] = 'http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css';
         $styles[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css';
         view()->share('styles', $styles);
 
         $scripts[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js';
         $scripts[] = '/js/dropzoneinit.js';
-//        $scripts[] = '/dist/js/admin/shop-summernote.js';
-//        $scripts[] = 'http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js';
         view()->share('scripts', $scripts);
 
         $data['user'] = new User();
@@ -90,14 +87,11 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
-        //        $styles[] = 'http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css';
         $styles[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css';
         view()->share('styles', $styles);
 
         $scripts[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js';
         $scripts[] = '/js/dropzoneinit.js';
-//        $scripts[] = '/dist/js/admin/shop-summernote.js';
-//        $scripts[] = 'http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js';
         view()->share('scripts', $scripts);
 
         $data['user'] = User::findOrFail($id);

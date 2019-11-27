@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Blog;
+use App\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\News;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,6 +28,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $data['latestUsers'] = User::orderBy('created_at', 'DESC')->get()->take(5);
+        $data['latestBlogs'] = Blog::orderBy('created_at', 'DESC')->get()->take(5);
+        $data['usersCount'] = User::get()->count();
+        $data['newsCount'] = News::get()->count();
+        $data['blogsCount'] = Blog::get()->count();
+        $data['categoriesCount'] = BlogCategory::get()->count();
+
+        return view('admin.dashboard', $data);
     }
 }

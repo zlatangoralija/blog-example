@@ -11,15 +11,10 @@
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Users</p>
-              <h3 class="card-title">49/50
-                <small>GB</small>
+              <h3 class="card-title">{{$usersCount}}
               </h3>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
-              </div>
             </div>
           </div>
         </div>
@@ -30,12 +25,9 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Blogs</p>
-              <h3 class="card-title">$34,245</h3>
+              <h3 class="card-title">{{$blogsCount}}</h3>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last 24 Hours
-              </div>
             </div>
           </div>
         </div>
@@ -46,12 +38,9 @@
                 <i class="material-icons">info_outline</i>
               </div>
               <p class="card-category">Blog categories</p>
-              <h3 class="card-title">75</h3>
+              <h3 class="card-title">{{$categoriesCount}}</h3>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
-              </div>
             </div>
           </div>
         </div>
@@ -62,12 +51,9 @@
                 <i class="fa fa-twitter"></i>
               </div>
               <p class="card-category">News</p>
-              <h3 class="card-title">+245</h3>
+              <h3 class="card-title">{{$newsCount}}</h3>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
-              </div>
             </div>
           </div>
         </div>
@@ -77,41 +63,28 @@
           <div class="card">
             <div class="card-header card-header-warning">
               <h4 class="card-title">Latest registered users</h4>
-              <p class="card-category">New employees on 15th September, 2016</p>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead class="text-warning">
                 <th>ID</th>
                 <th>Name</th>
-                <th>Salary</th>
+                <th>Username</th>
                 <th>Country</th>
+                <th>Email</th>
+                <th>Registration date</th>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Dakota Rice</td>
-                  <td>$36,738</td>
-                  <td>Niger</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Minerva Hooper</td>
-                  <td>$23,789</td>
-                  <td>Curaçao</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Sage Rodriguez</td>
-                  <td>$56,142</td>
-                  <td>Netherlands</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Philip Chaney</td>
-                  <td>$38,735</td>
-                  <td>Korea, South</td>
-                </tr>
+                @foreach($latestUsers as $user)
+                    <tr>
+                      <td>{{$user->id}}</td>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->username}}</td>
+                      <td>{{$user->country->title}}</td>
+                      <td>{{$user->email}}</td>
+                      <td>{{$user->created_at}}</td>
+                    </tr>
+                @endforeach
                 </tbody>
               </table>
             </div>
@@ -121,41 +94,28 @@
           <div class="card">
             <div class="card-header card-header-warning">
               <h4 class="card-title">Latest blogs</h4>
-              <p class="card-category">New employees on 15th September, 2016</p>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead class="text-warning">
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Salary</th>
-                  <th>Country</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Author</th>
+                  <th>Content</th>
+                  <th>Creation date</th>
                 </thead>
                 <tbody>
+                @foreach($latestBlogs as $blog)
                   <tr>
-                    <td>1</td>
-                    <td>Dakota Rice</td>
-                    <td>$36,738</td>
-                    <td>Niger</td>
+                    <td>{{$blog->id}}</td>
+                    <td>{{$blog->title}}</td>
+                    <td>{{$blog->category->title}}</td>
+                    <td>{{$blog->user->username}}</td>
+                    <td>{{$blog->content}}</td>
+                    <td>{{$blog->created_at}}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Minerva Hooper</td>
-                    <td>$23,789</td>
-                    <td>Curaçao</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Sage Rodriguez</td>
-                    <td>$56,142</td>
-                    <td>Netherlands</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Philip Chaney</td>
-                    <td>$38,735</td>
-                    <td>Korea, South</td>
-                  </tr>
+                @endforeach
                 </tbody>
               </table>
             </div>

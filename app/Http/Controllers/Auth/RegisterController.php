@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Country;
+use App\Events\AdminUserRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -79,7 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -87,5 +88,9 @@ class RegisterController extends Controller
             'country_id' => $data['country_id'],
             'role_id' => User::$_ROLE_USER,
         ]);
+
+        event(new AdminUserRegisteredEvent($user));
+
+        return $user;
     }
 }

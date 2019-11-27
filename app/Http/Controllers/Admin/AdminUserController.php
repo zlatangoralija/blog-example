@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Notification;
 use App\Repositories\FilesUpload\FilesUpload;
 use App\User;
 use Illuminate\Http\Request;
@@ -16,6 +17,11 @@ class AdminUserController extends Controller
     {
         $this->filesUpload = new FilesUpload();
         $this->path = 'users/';
+        $notifications = Notification::where('is_read', false)->get();
+        view()->share('notifications', $notifications);
+
+        $scripts[] = '/js/readnotification.js';
+        view()->share('scripts', $scripts);
     }
 
     /**

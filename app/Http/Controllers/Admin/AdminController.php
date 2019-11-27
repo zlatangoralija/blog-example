@@ -6,6 +6,7 @@ use App\Blog;
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
 use App\News;
+use App\Notification;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,11 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $notifications = Notification::where('is_read', false)->get();
+        view()->share('notifications', $notifications);
+
+        $scripts[] = '/js/readnotification.js';
+        view()->share('scripts', $scripts);
     }
 
     /**

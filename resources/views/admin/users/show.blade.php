@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Preview user')])
+@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Users')])
 
 @section('content')
     <div class="content">
@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12">
                     <div class="card border-0 shadow">
-                        <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
+                        <img src="{{asset('/storage/' . $user->featured_image)}}" class="card-img-top" alt="..." style="max-width: 100%; height: auto;">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-0">{{$user->name}}</h5>
                         </div>

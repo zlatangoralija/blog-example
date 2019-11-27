@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Users List')])
+@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Users')])
 
 @section('content')
     <div class="content">
@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-plain">
-                        <div class="card-header card-header-primary">
-                            {{--TODO: Add AJAX search here--}}
-                            <h4 class="card-title mt-0"> Users list</h4>
-                        </div>
+{{--                        <div class="card-header card-header-primary">--}}
+{{--                            --}}{{--TODO: Add AJAX search here--}}
+{{--                            <h4 class="card-title mt-0"> Users list</h4>--}}
+{{--                        </div>--}}
                         <div class="card-body">
                             @include('layouts.success_error.success_error')
                             <div class="row">

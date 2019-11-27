@@ -4,11 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Repositories\FilesUpload\FilesUpload;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminUserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->filesUpload = new FilesUpload();
+        $this->path = 'users/';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +36,13 @@ class AdminUserController extends Controller
      */
     public function create()
     {
+        $styles[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css';
+        view()->share('styles', $styles);
+
+        $scripts[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js';
+        $scripts[] = '/js/dropzoneinit.js';
+        view()->share('scripts', $scripts);
+
         $data['user'] = new User();
         return view('admin.users.create', $data);
 
@@ -41,6 +57,12 @@ class AdminUserController extends Controller
     public function store(UserRequest $request)
     {
         $input = $request->input();
+
+        //take care of the featured_image
+        if ( $request->filled('featured_image') && $request->input('featured_image')) {
+            $input['featured_image'] = $this->filesUpload->processFeaturedImage($request->input('featured_image'), $this->path);
+        }
+
         User::create($input);
         return redirect()->route('admin.users.index')->with('success', 'User created.');
     }
@@ -65,6 +87,13 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
+        $styles[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css';
+        view()->share('styles', $styles);
+
+        $scripts[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js';
+        $scripts[] = '/js/dropzoneinit.js';
+        view()->share('scripts', $scripts);
+
         $data['user'] = User::findOrFail($id);
         return view('admin.users.edit', $data);
     }
@@ -80,6 +109,17 @@ class AdminUserController extends Controller
     {
         $input = $request->input();
         $user = User::findOrFail($id);
+
+        //take care of the featured_image
+        if ( $request->filled('featured_image') && $request->input('featured_image')) {
+            if($user->featured_image){
+                Storage::delete('/public/'.$user->featured_image);
+            }
+            $input['featured_image'] = $this->filesUpload->processFeaturedImage($request->input('featured_image'), $this->path);
+        }elseif ($user->featured_image){
+            $input['featured_image'] = $user->featured_image;
+        }
+
         $user->update($input);
         return redirect()->route('admin.users.index')->with('success', 'User updated.');
     }

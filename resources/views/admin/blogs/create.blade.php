@@ -1,7 +1,11 @@
-@extends('layouts.app', ['activePage' => 'blogs', 'titlePage' => __('Blogs list')])
+@extends('layouts.app', ['activePage' => 'blogs', 'titlePage' => __('Blogs')])
 
 @section('content')
-    {!! Form::model($blog, ['route' => 'admin.blogs.store', 'files'=>true]) !!}
-    @include('admin.blogs.form')
-    {!! Form::close() !!}
+    <div class="content">
+        <div class="container-fluid">
+            {!! Form::model($blog, ['route' => 'admin.blogs.store', 'files'=>true]) !!}
+            @include('admin.blogs.form')
+            {!! Form::close() !!}
+        </div>
+    </div>
 @stop

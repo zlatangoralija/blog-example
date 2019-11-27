@@ -1,7 +1,11 @@
-@extends('layouts.app', ['activePage' => 'blog-categories', 'titlePage' => __('News blog category')])
+@extends('layouts.app', ['activePage' => 'blog-categories', 'titlePage' => __('Blog categories')])
 
 @section('content')
-    {!! Form::model($category, ['route' => 'admin.blog-categories.store', 'files'=>true]) !!}
-    @include('admin.categories.form')
-    {!! Form::close() !!}
+    <div class="content">
+        <div class="container-fluid">
+            {!! Form::model($category, ['route' => 'admin.blog-categories.store', 'files'=>true]) !!}
+            @include('admin.categories.form')
+            {!! Form::close() !!}
+        </div>
+    </div>
 @stop

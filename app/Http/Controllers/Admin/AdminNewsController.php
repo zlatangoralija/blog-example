@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
 use App\News;
+use App\Notification;
 use App\Repositories\FilesUpload\FilesUpload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,11 @@ class AdminNewsController extends Controller
     {
         $this->filesUpload = new FilesUpload();
         $this->path = 'news/';
+        $notifications = Notification::where('is_read', false)->get();
+        view()->share('notifications', $notifications);
+
+        $scripts[] = '/js/readnotification.js';
+        view()->share('scripts', $scripts);
     }
 
     /**

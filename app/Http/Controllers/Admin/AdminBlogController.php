@@ -6,6 +6,7 @@ use App\Blog;
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
+use App\Notification;
 use App\Repositories\FilesUpload\FilesUpload;
 use DemeterChain\B;
 use Illuminate\Http\Request;
@@ -18,6 +19,11 @@ class AdminBlogController extends Controller
     {
         $this->filesUpload = new FilesUpload();
         $this->path = 'blogs/';
+        $notifications = Notification::where('is_read', false)->get();
+        view()->share('notifications', $notifications);
+
+        $scripts[] = '/js/readnotification.js';
+        view()->share('scripts', $scripts);
     }
     /**
      * Display a listing of the resource.

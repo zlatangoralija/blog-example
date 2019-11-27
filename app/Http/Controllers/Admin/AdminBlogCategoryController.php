@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Notification;
 use Illuminate\Http\Request;
 
 class AdminBlogCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $notifications = Notification::where('is_read', false)->get();
+        view()->share('notifications', $notifications);
+
+        $scripts[] = '/js/readnotification.js';
+        view()->share('scripts', $scripts);
+    }
     /**
      * Display a listing of the resource.
      *

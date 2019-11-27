@@ -15,6 +15,6 @@ php.xml
 vcs.xml
 workspace.xml
 composer.lock
-.idea/
+/.idea
 public/mix-manifest.json
 package-lock.json

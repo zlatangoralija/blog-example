@@ -24,7 +24,7 @@
         @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN)
             <li class="nav-item{{ $activePage == 'users' ? ' active' : '' }}">
                 <a class="nav-link" href="{{route('admin.users.index')}}">
-                    <i class="material-icons">content_paste</i>
+                    <i class="material-icons">account_circle</i>
                     <p>{{ __('Users') }}</p>
                 </a>
             </li>
@@ -45,7 +45,7 @@
     @endif
       <li class="nav-item{{ $activePage == 'news' ? ' active' : '' }}">
         <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN ? route('admin.news.index') : route('news.index') }}">
-          <i class="material-icons">location_ons</i>
+          <i class="material-icons">notifications</i>
             <p>{{ __('News') }}</p>
         </a>
       </li>

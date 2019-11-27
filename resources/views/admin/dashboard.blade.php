@@ -8,7 +8,7 @@
           <div class="card card-stats">
             <div class="card-header card-header-warning card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">content_copy</i>
+                <i class="material-icons">group</i>
               </div>
               <p class="card-category">Users</p>
               <h3 class="card-title">{{$usersCount}}
@@ -22,7 +22,7 @@
           <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">store</i>
+                <i class="material-icons">library_books</i>
               </div>
               <p class="card-category">Blogs</p>
               <h3 class="card-title">{{$blogsCount}}</h3>
@@ -35,7 +35,7 @@
           <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">info_outline</i>
+                <i class="material-icons">bubble_chart</i>
               </div>
               <p class="card-category">Blog categories</p>
               <h3 class="card-title">{{$categoriesCount}}</h3>
@@ -48,7 +48,7 @@
           <div class="card card-stats">
             <div class="card-header card-header-info card-header-icon">
               <div class="card-icon">
-                <i class="fa fa-twitter"></i>
+                <i class="fa fa-newspaper-o"></i>
               </div>
               <p class="card-category">News</p>
               <h3 class="card-title">{{$newsCount}}</h3>

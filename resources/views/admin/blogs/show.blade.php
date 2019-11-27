@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'blogs', 'titlePage' => __('Preview blog')])
+@extends('layouts.app', ['activePage' => 'blogs', 'titlePage' => __('Blogs')])
 
 @section('content')
 
@@ -8,7 +8,6 @@
                 <div class="col-md-12">
                     <div class="card card-plain">
                         <div class="card-header card-header-primary">
-                            {{--TODO: Add AJAX search here--}}
                             <h4 class="card-title mt-0"> Preview blog</h4>
                         </div>
                         <div class="col-12 text-right">
@@ -19,12 +18,12 @@
                                 <h1 class="mt-4">{{$blog->title}}</h1>
                                 <p class="lead">
                                     by
-                                    <a href="#">{{$blog->user_id}}</a>
+                                    <a href="#">{{$blog->user->username}}</a>
                                 </p>
                                 <hr>
                                 <p>Posted {{$blog->created_at->diffForHumans()}}</p>
                                 <hr>
-                                <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+                                <img class="img-fluid rounded" src="{{asset('/storage/' . $blog->featured_image)}}" alt="">
                                 <hr>
                                 {!! $blog->content !!}
                             </div>

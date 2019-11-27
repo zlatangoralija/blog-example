@@ -70,7 +70,7 @@ class FilesUpload
                 $filePath = $directory . $file->fileName;
 
                 //Resize image with ImageIntervention
-                $image = Image::make(Storage::path('public/'. $filePath))->resize(509, 450);
+                $image = Image::make(Storage::path('public/'. $filePath))->resize(1920, 1080);
                 $image->save();
             }
         }
@@ -97,27 +97,6 @@ class FilesUpload
                 //Resize image with ImageIntervention
                 $image = Image::make(Storage::path('public/'. $filePath))->resize(1920, 300);
                 $image->save();
-            }
-        }
-        return $filePath;
-    }
-
-    /**
-     * Function that handles the processing of attachments that were uploaded through dropzone
-     * @uploadedFile - instance of Illuminate\Http\Request;
-     * @directory - string;
-     * @return string
-     */
-    public function processAttachments($uploadedFile, $directory){
-
-        $file = json_decode($uploadedFile);
-
-        $filePath = '';
-
-        if (Storage::exists($file->path)) {
-            $fileMoved = Storage::move($file->path, 'public/'. $directory . $file->fileName);
-            if ($fileMoved) {
-                $filePath = $directory . $file->fileName;
             }
         }
         return $filePath;

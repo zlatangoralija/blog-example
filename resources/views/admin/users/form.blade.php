@@ -54,12 +54,6 @@
                         <input type="hidden"  name="featured_image" id="featured-image">
                         <div class="col-lg-12 col-md-9 col-sm-12">
                             <div class="dropzone dropzone-default dz-clickable" data-input-element="#featured-image">
-                                @if(isset($product) && $product->featured_image )
-                                    @if(isset($product->featured_image))
-                                        <img src="{{asset('/storage/' . $product->featured_image)}}"
-                                             class="thumbnail old-featured-image"/>
-                                    @endif
-                                @endif
                                 <div class="dropzone-msg dz-message needsclick">
                                     <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
                                 </div>
@@ -68,6 +62,14 @@
                     </div>
                 </div>
             </div>
+            @if(isset($user) && $user->featured_image )
+                @if(isset($user->featured_image))
+                    <div class="row" style="justify-content: center;">
+                        <img src="{{asset('/storage/' . $user->featured_image)}}"
+                             class="thumbnail old-featured-image" style="max-width: 50%; height: auto;"/>
+                    </div>
+                @endif
+            @endif
             <div class="card-footer ml-auto mr-auto">
                 {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
             </div>

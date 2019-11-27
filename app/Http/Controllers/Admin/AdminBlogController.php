@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Blog;
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogRequest;
 use App\Repositories\FilesUpload\FilesUpload;
 use DemeterChain\B;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class AdminBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
         $input = $request->input();
         $input['user_id'] = Auth::user()->id;
@@ -108,7 +109,7 @@ class AdminBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, $id)
     {
         $blog = Blog::findOrFail($id);
         $input = $request->input();

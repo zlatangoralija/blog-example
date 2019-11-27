@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('home') }}">
+          <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN ? route('admin.admin') : route('home') }}">
             <i class="material-icons">dashboard</i>
             <p class="d-lg-none d-md-block">
               {{ __('Stats') }}

@@ -17,4 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('users', 'API\APIController@getUsers');
+Route::get('blogs', 'API\APIController@getBlogs');
+Route::get('news', 'API\APIController@getNews');
 Route::post('/notification/update/{notification}', 'API\APIController@updateNotification');

@@ -46,7 +46,7 @@ class LoginController extends Controller
             return redirect()->route('users');
         }
 
-        if ($request->user()->role_id = User::$_ROLE_ADMIN) {
+        if ($request->user()->role_id == User::$_ROLE_ADMIN) {
             return redirect()->route('admin.admin');
         }
     }

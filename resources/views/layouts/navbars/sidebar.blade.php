@@ -6,37 +6,45 @@
   -->
   <div class="logo">
     <a href="https://creative-tim.com/" class="simple-text logo-normal">
-      {{ __('Admin Panel') }}
+        @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN)
+            {{ __('Admin Panel') }}
+        @else
+            {{ __('User Panel') }}
+        @endif
     </a>
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('home') }}">
+        <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN ? route('admin.admin') : route('home')}}">
           <i class="material-icons">dashboard</i>
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'users' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('admin.users.index')}}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Users') }}</p>
-        </a>
-      </li>
+        @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN)
+            <li class="nav-item{{ $activePage == 'users' ? ' active' : '' }}">
+                <a class="nav-link" href="{{route('admin.users.index')}}">
+                    <i class="material-icons">content_paste</i>
+                    <p>{{ __('Users') }}</p>
+                </a>
+            </li>
+        @endif
       <li class="nav-item{{ $activePage == 'blogs' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('admin.blogs.index')}}">
+        <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN ? route('admin.blogs.index') : route('blogs.index') }}">
           <i class="material-icons">library_books</i>
             <p>{{ __('Blogs') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'blog-categories' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('admin.blog-categories.index')}}">
-          <i class="material-icons">bubble_chart</i>
-          <p>{{ __('Categories') }}</p>
-        </a>
-      </li>
+    @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN)
+        <li class="nav-item{{ $activePage == 'blog-categories' ? ' active' : '' }}">
+            <a class="nav-link" href="{{route('admin.blog-categories.index')}}">
+                <i class="material-icons">bubble_chart</i>
+                <p>{{ __('Categories') }}</p>
+            </a>
+        </li>
+    @endif
       <li class="nav-item{{ $activePage == 'news' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('admin.news.index')}}">
+        <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role_id == \App\User::$_ROLE_ADMIN ? route('admin.news.index') : route('news.index') }}">
           <i class="material-icons">location_ons</i>
             <p>{{ __('News') }}</p>
         </a>

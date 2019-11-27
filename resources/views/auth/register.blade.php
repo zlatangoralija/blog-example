@@ -33,12 +33,31 @@
                 </div>
                 <input type="text" name="name" class="form-control" placeholder="{{ __('Name...') }}" value="{{ old('name') }}" required>
               </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                  <span class="input-group-text">
+                      <i class="material-icons">house</i>
+                  </span>
+                    </div>
+                    {!! Form::select('country_id', $countries, null, ['class' => 'dynamic-label form-control', 'placeholder' => 'Select country', 'required'=>'required']) !!}
+
+                </div>
+                <div class="form-group">
+                </div>
               @if ($errors->has('name'))
                 <div id="name-error" class="error text-danger pl-3" for="name" style="display: block;">
                   <strong>{{ $errors->first('name') }}</strong>
                 </div>
               @endif
             </div>
+          <div class="input-group">
+              <div class="input-group-prepend">
+              <span class="input-group-text">
+                  <i class="material-icons">account_circle</i>
+              </span>
+              </div>
+              <input type="text" name="username" class="form-control" placeholder="{{ __('Username...') }}" value="{{ old('username') }}" required>
+          </div>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
                 <div class="input-group-prepend">

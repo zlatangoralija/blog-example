@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\News;
 use App\Repositories\FilesUpload\FilesUpload;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class AdminNewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
         $input = $request->input();
         $input['user_id'] = Auth::user()->id;
@@ -105,7 +106,7 @@ class AdminNewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, $id)
     {
         $input = $request->input();
         $news = News::findOrFail($id);

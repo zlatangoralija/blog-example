@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'country_id', 'featured_image'
+        'name', 'email', 'password', 'username', 'country_id', 'featured_image', 'role_id'
     ];
 
     /**
@@ -37,11 +37,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static $_ROLE_ADMIN = 1;
+    public static $_ROLE_USER = 2;
+
+    public static function getUserRoles(){
+        return [
+            self::$_USER_GROUP_ADMIN => 'Admin',
+            self::$_USER_GROUP_USER => 'User',
+        ];
+    }
+
+    public function getUserRole(){
+        return self::getUserRoles()[$this->role_id];
+    }
+
     public function blogs(){
         return $this->hasMany('App\Blog');
     }
 
     public function news(){
         return $this->hasMany('App\News');
+    }
+
+    public function country(){
+        return $this->belongsTo('App\Country');
     }
 }

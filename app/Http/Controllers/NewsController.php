@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Blog;
-use App\BlogCategory;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
+use App\Http\Requests\NewsRequest;
+use App\News;
 use App\Repositories\FilesUpload\FilesUpload;
-use DemeterChain\B;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class AdminBlogController extends Controller
+class NewsController extends Controller
 {
     public function __construct()
     {
         $this->filesUpload = new FilesUpload();
-        $this->path = 'blogs/';
+        $this->path = 'news/';
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +24,8 @@ class AdminBlogController extends Controller
      */
     public function index()
     {
-        $data['blogs'] = Blog::get();
-        return view('admin.blogs.index', $data);
+        $data['news'] = News::where('user_id', Auth::user()->id)->get();
+        return view('users.news.index', $data);
     }
 
     /**
@@ -44,9 +42,8 @@ class AdminBlogController extends Controller
         $scripts[] = '/js/dropzoneinit.js';
         view()->share('scripts', $scripts);
 
-        $data['blog'] = new Blog();
-        $data['categories'] = BlogCategory::pluck('title', 'id');
-        return view('admin.blogs.create', $data);
+        $data['news'] = new News();
+        return view('users.news.create', $data);
     }
 
     /**
@@ -55,18 +52,18 @@ class AdminBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogRequest $request)
+    public function store(NewsRequest $request)
     {
         $input = $request->input();
         $input['user_id'] = Auth::user()->id;
 
         //take care of the featured_image
         if ( $request->filled('featured_image') && $request->input('featured_image')) {
-            $input['featured_image'] = $this->filesUpload->processBannerImage($request->input('featured_image'), $this->path);
+            $input['featured_image'] = $this->filesUpload->processFeaturedImage($request->input('featured_image'), $this->path);
         }
 
-        Blog::create($input);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created');
+        News::create($input);
+        return redirect()->route('news.index')->with('success', 'News created.');
     }
 
     /**
@@ -77,8 +74,8 @@ class AdminBlogController extends Controller
      */
     public function show($id)
     {
-        $data['blog'] = Blog::findOrFail($id);
-        return view('admin.blogs.show', $data);
+        $data['news'] = News::findOrFail($id);
+        return view('users.news.show', $data);
     }
 
     /**
@@ -89,7 +86,6 @@ class AdminBlogController extends Controller
      */
     public function edit($id)
     {
-
         $styles[] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css';
         view()->share('styles', $styles);
 
@@ -97,9 +93,8 @@ class AdminBlogController extends Controller
         $scripts[] = '/js/dropzoneinit.js';
         view()->share('scripts', $scripts);
 
-        $data['blog'] = Blog::findOrFail($id);
-        $data['categories'] = BlogCategory::pluck('title', 'id');
-        return view('admin.blogs.edit', $data);
+        $data['news'] = News::findOrFail($id);
+        return view('users.news.edit', $data);
     }
 
     /**
@@ -109,23 +104,24 @@ class AdminBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlogRequest $request, $id)
+    public function update(NewsRequest $request, $id)
     {
-        $blog = Blog::findOrFail($id);
         $input = $request->input();
+        $news = News::findOrFail($id);
 
         //take care of the featured_image
         if ( $request->filled('featured_image') && $request->input('featured_image')) {
-            if($blog->featured_image){
-                Storage::delete('/public/'.$blog->featured_image);
+            if($news->featured_image){
+                Storage::delete('/public/'.$news->featured_image);
             }
-            $input['featured_image'] = $this->filesUpload->processBannerImage($request->input('featured_image'), $this->path);
-        }elseif ($blog->featured_image){
-            $input['featured_image'] = $blog->featured_image;
+            $input['featured_image'] = $this->filesUpload->processFeaturedImage($request->input('featured_image'), $this->path);
+        }elseif ($news->featured_image){
+            $input['featured_image'] = $news->featured_image;
         }
 
-        $blog->update($input);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated');
+        $news->update($input);
+        return redirect()->route('news.index')->with('success', 'News updated.');
+
     }
 
     /**
@@ -136,8 +132,8 @@ class AdminBlogController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Blog::findOrFail($id);
-        $blog->delete;
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted');
+        $news = News::findOrFail($id);
+        $news->delete();
+        return redirect()->route('news.index')->with('success', 'News deleted.');
     }
 }

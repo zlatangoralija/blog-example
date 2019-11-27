@@ -20,11 +20,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-//Public routes
 
+//Public routes
+Route::group(['middleware' => ['user']], function () {
+    Route::resource('blogs', 'BlogController');
+    Route::resource('news', 'NewsController');
+});
 
 //Admin route
-Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
+Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>'admin'], function(){
+    Route::get('/', 'Admin\AdminController@index')->name('admin');
     Route::resource('users', 'Admin\AdminUserController');
     Route::resource('blogs', 'Admin\AdminBlogController');
     Route::resource('blog-categories', 'Admin\AdminBlogCategoryController');

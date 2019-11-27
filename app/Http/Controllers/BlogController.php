@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Blog;
 use App\BlogCategory;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
 use App\Repositories\FilesUpload\FilesUpload;
-use DemeterChain\B;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class AdminBlogController extends Controller
+class BlogController extends Controller
 {
     public function __construct()
     {
@@ -26,8 +24,8 @@ class AdminBlogController extends Controller
      */
     public function index()
     {
-        $data['blogs'] = Blog::get();
-        return view('admin.blogs.index', $data);
+        $data['blogs'] = Blog::where('user_id', Auth::user()->id)->get();
+        return view('users.blogs.index', $data);
     }
 
     /**
@@ -46,7 +44,7 @@ class AdminBlogController extends Controller
 
         $data['blog'] = new Blog();
         $data['categories'] = BlogCategory::pluck('title', 'id');
-        return view('admin.blogs.create', $data);
+        return view('users.blogs.create', $data);
     }
 
     /**
@@ -66,7 +64,7 @@ class AdminBlogController extends Controller
         }
 
         Blog::create($input);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created');
+        return redirect()->route('blogs.index')->with('success', 'Blog created');
     }
 
     /**
@@ -78,7 +76,7 @@ class AdminBlogController extends Controller
     public function show($id)
     {
         $data['blog'] = Blog::findOrFail($id);
-        return view('admin.blogs.show', $data);
+        return view('users.blogs.show', $data);
     }
 
     /**
@@ -99,7 +97,7 @@ class AdminBlogController extends Controller
 
         $data['blog'] = Blog::findOrFail($id);
         $data['categories'] = BlogCategory::pluck('title', 'id');
-        return view('admin.blogs.edit', $data);
+        return view('users.blogs.edit', $data);
     }
 
     /**
@@ -125,7 +123,7 @@ class AdminBlogController extends Controller
         }
 
         $blog->update($input);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated');
+        return redirect()->route('blogs.index')->with('success', 'Blog updated');
     }
 
     /**
@@ -137,7 +135,7 @@ class AdminBlogController extends Controller
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
-        $blog->delete;
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted');
+        $blog->delete();
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted');
     }
 }

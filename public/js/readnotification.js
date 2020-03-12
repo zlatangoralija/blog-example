@@ -104,7 +104,7 @@ eval("$(document).ready(function () {\n  $('#update-notification').on('click', f
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/zlatan/Projects/blog-example/resources/js/readnotification.js */"./resources/js/readnotification.js");
+module.exports = __webpack_require__(/*! /media/zlatan/DATA/Projects/blog-example/resources/js/readnotification.js */"./resources/js/readnotification.js");
 
 
 /***/ })

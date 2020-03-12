@@ -104,7 +104,7 @@ eval("Dropzone.autoDiscover = false;\n$(document).ready(function () {\n  console
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/zlatan/Projects/blog-example/resources/js/dropzoneinit.js */"./resources/js/dropzoneinit.js");
+module.exports = __webpack_require__(/*! /media/zlatan/DATA/Projects/blog-example/resources/js/dropzoneinit.js */"./resources/js/dropzoneinit.js");
 
 
 /***/ })
